@@ -2,7 +2,9 @@
   <div>
     <div class="firstrun" v-on:click="secondstage">
       <div class="heart">
-        <img class="heartimg" v-bind:class="{heartbeat: isheartbeat, heartup: isSecondStage, pulse: isSecondStage}" src="./assets/heart.png" alt="Сердечко">
+        <img class="heartimg" v-show="!notright && !thirdstage" v-bind:class="[{heartbeat: isheartbeat, heartup: isheartup, heartdown: isheartdown}, {pulse: isPulse, notpulse: !isPulse}, {heartsizemax: thirdstage, heartopac: thirdstage} ]" src="./assets/heart.png" alt="Сердечко">
+        <img class="heartimg" v-show="notright" v-bind:class="{heartbeat: isheartbeat, heartup: isheartup, pulse: isSecondStagebroken, shake: notright}" src="./assets/brokenheart.png" alt="Сердечко">
+        <img class="heartimg" v-if="thirdstage" v-bind:class="[{heartbeat: isheartbeat, heartup: isheartup, heartdown: isheartdown}, {heartsizemax: thirdstage, heartopac: thirdstage} ]" src="./assets/heart.png" alt="Сердечко">
       </div>
       <div class="bgheart" v-if="isheartbeat">
         <img class="heartimgbg" v-if="isheartbeat" src="./assets/heart.png" alt="Сердечко">
@@ -13,11 +15,22 @@
       <div class="underhearttext" v-bind:class="{hiden: !showheartbeattext}">
         <h2 class="underhearttexth2">Нажми на меня...</h2>
       </div>
-      <div class="paswblock" v-bind:class="{unhiden: !openSecondStageText}">
-        <h2 class="wt">Сердечко закрыто🔒</h2>
-        <p class="gt">Введи пароль, чтобы разблокировать его:</p>
-        <input class="passwinput" type="text" placeholder="Пароль">
-        <button class="openbutton">Открыть</button>
+      <div class="paswblock" @keyup.enter="openheartfun()" v-bind:class="{unhiden: !openSecondStageText, hiden: close}">
+        <h2 class="wt" v-show="!notrightext">Сердечко закрыто🔒</h2>
+        <p class="gt" v-show="!notrightext">Введи пароль, чтобы разблокировать его:</p>
+        <h2 class="wt" v-show="notrightext">Неверный пароль(</h2>
+        <p class="gt" v-show="notrightext">Попробуй еще раз:</p>
+        <input class="passwinput" v-model="password" type="text" placeholder="Пароль">
+        <button class="openbutton" :disabled="!password.length" v-on:click="openheartfun">Открыть</button>
+      </div>
+      <div class="govstrtext" v-bind:class="{show: thirdstage, hiden: !thirdstage}">
+        <h1 class="govstr">Го встр?)</h1>
+      </div>
+      <div class="topext" v-show="thirdstage">
+        <h2>Влад ❤️ Маня</h2>
+      </div>
+      <div class="bottext" v-show="thirdstage">
+        <h2>23.12.23</h2>
       </div>
 
     </div>
@@ -33,20 +46,55 @@ export default {
     isheartbeat: true,
     showheartbeattext: true,
     isSecondStage: false,
-    openSecondStageText: false
+    isheartup: false,
+    isheartdown: false,
+    openSecondStageText: false,
+    password: '',
+    notright: false,
+    notrightext: false,
+    isSecondStagebroken: false,
+    close: false,
+    thirdstage: false,
+    isPulse: false
   }
   },
   methods:{
     secondstage(){
       this.isheartbeat = false
+      this.isheartup = true
       this.showheartbeattext = false
       this.isSecondStage = true
+      this.isPulse = true
       let cont = this
       function unhidenSST(){
         cont.openSecondStageText = true
       }
       setTimeout(unhidenSST, 1000)
+    },
+    openheartfun(){
+      let cont = this
+      function notrightunsv(){
+        cont.notright = false
+        console.log("wrong");
+      }
+    if ((this.password).toLowerCase() == "маша"){
+      console.log("Маша");
+      this.close = true
+      this.isheartdown = true
+      console.log(this.isheartup);
+      this.thirdstage = true
+      this.isPulse = false
     }
+    else {
+      let cont = this
+      cont.notright = true
+      cont.notrightext = true
+      
+      setTimeout(notrightunsv, 1000)
+      
+      
+    }
+  }
   }
 }
 </script>
@@ -137,7 +185,6 @@ export default {
   animation: pulse 3000ms infinite;
 }
 
-
 .underhearttexth2 {
   animation: heartbeattext 3000ms infinite;
 }
@@ -176,6 +223,7 @@ export default {
   font-weight: bold;
   transition: 500ms;
   margin-bottom: 4%;
+  text-align: center;
 }
 input:focus {
     border-bottom: 15px solid #FF0C5E;
@@ -196,6 +244,76 @@ input:focus {
   color: #FF0C5E;
   font-weight: bold;
   cursor: pointer;
+  transition: 500ms;
+}
+
+.openbutton:disabled {
+  border: solid 15px #610221;
+  color: #610221;
+  cursor: default;
+  transition: 500ms;
+}
+
+.shake  {
+  animation: shake 500ms;
+}
+
+.heartdown {
+  padding-bottom: 0;
+  transition: 1000ms;
+}
+.heartsizemax {
+  width: 52.5%;
+  animation: hearsizemax 1000ms;
+  opacity: 0.12;
+}
+/* .heartopac{
+  opacity: 0.12;
+  animation: hearopac 1000ms;
+} */
+
+.govstrtext {
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  z-index: 4;
+  opacity: 0;
+}
+.govstr {
+  font-size: 9vh;
+  color: #FFFFFF;
+}
+.show {
+  opacity: 1;
+  animation: show 1000ms;
+}
+.topext {
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  z-index: 6;
+  padding-top: 2%;
+  font-size: 1vw;
+  font-weight: bold;
+  color: #FFFFFF;
+  opacity: 0.7;
+}
+.bottext {
+  position: fixed;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  z-index: 7;
+  font-size: 1vw;
+  font-weight: bold;
+  color: #a30238;
 }
 
 
@@ -223,6 +341,21 @@ input:focus {
     }
     50%{
       width: 37.5%;
+    }
+    
+}
+@keyframes shake {
+    0%{
+      padding-left: 10%;
+    }
+    25%{
+      padding-left: 0;
+    }
+    50%{
+      padding-right: 10%;
+    }
+    75% {
+      padding-right: 0;
     }
     
 }
@@ -318,6 +451,72 @@ input:focus {
 
     
 }
+
+@keyframes hearsizemax {
+  0%{
+    width: 35%;
+    opacity: 1;
+  }
+  10%{
+    width: 37.5%;
+  }
+  20%{
+    width: 40%;
+  }
+  30%{
+    width: 42.5%;
+  }
+  40%{
+    width: 45%;
+  }
+  50%{
+    width: 47.5%;
+  }
+  60%{
+    width: 50%;
+  }
+  70%{
+    width: 52.5%;
+  }
+  80% {
+    opacity: 1;
+  }
+  90%{
+    opacity: 0.5;
+  }
+  100%{
+    width: 52.5%;
+  }
+}
+@keyframes hearopac {
+  0%{
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+  90%{
+    opacity: 0.5;
+  }
+  100%{
+    opacity: 0.12;
+  }
+}
+@keyframes show {
+  0%{
+    opacity: 0;
+  }
+  80% {
+    opacity: 0;
+  }
+  90%{
+    opacity: 0.5;
+  }
+  100%{
+    opacity: 1;
+  }
+}
+
 </style>
 
 
