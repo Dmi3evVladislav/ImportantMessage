@@ -2,15 +2,15 @@
   <div>
     <div class="firstrun" v-on:click="secondstage">
       <div class="heart">
-        <img class="heartimg" v-show="!notright && !thirdstage" v-bind:class="[{heartbeat: isheartbeat, heartup: isheartup, heartdown: isheartdown}, {pulse: isPulse, notpulse: !isPulse}, {heartsizemax: thirdstage, heartopac: thirdstage} ]" src="./assets/heart.png" alt="Сердечко">
-        <img class="heartimg" v-show="notright" v-bind:class="{heartbeat: isheartbeat, heartup: isheartup, pulse: isSecondStagebroken, shake: notright}" src="./assets/brokenheart.png" alt="Сердечко">
-        <img class="heartimg" v-if="thirdstage" v-bind:class="[{heartbeat: isheartbeat, heartup: isheartup, heartdown: isheartdown}, {heartsizemax: thirdstage, heartopac: thirdstage} ]" src="./assets/heart.png" alt="Сердечко">
+        <img class="heartimg" v-show="!notright && !thirdstage" v-bind:class="[{heartbeat: isheartbeat, heartup: isheartup, heartdown: isheartdown}, {pulse: isPulse, notpulse: !isPulse}, {heartsizemax: thirdstage, heartopac: thirdstage} ]" src="./assets/heart800px.png" alt="Сердечко">
+        <img class="heartimg" v-show="notright" v-bind:class="{heartbeat: isheartbeat, heartup: isheartup, pulse: isSecondStagebroken, shake: notright}" src="./assets/brokenheart800px.png" alt="Сердечко">
+        <img class="heartimg" v-if="thirdstage" v-bind:class="[{heartbeat: isheartbeat, heartup: isheartup, heartdown: isheartdown}, {heartsizemax: thirdstage, heartopac: thirdstage} ]" src="./assets/heart800px.png" alt="Сердечко">
       </div>
       <div class="bgheart" v-if="isheartbeat">
-        <img class="heartimgbg" v-if="isheartbeat" src="./assets/heart.png" alt="Сердечко">
+        <img class="heartimgbg" v-if="isheartbeat" src="./assets/heart800px.png" alt="Сердечко">
       </div>
       <div class="bgheart2" v-if="isheartbeat">
-        <img class="heartimgbg2" v-if="isheartbeat" src="./assets/heart.png" alt="Сердечко">
+        <img class="heartimgbg2" v-if="isheartbeat" src="./assets/heart800px.png" alt="Сердечко">
       </div>
       <div class="underhearttext" v-bind:class="{hiden: !showheartbeattext}">
         <h2 class="underhearttexth2">Нажми на меня...</h2>
@@ -109,13 +109,14 @@ export default {
   height: 100vh;
   background: rgb(80,12,12);
   background: linear-gradient(345deg, rgba(80,12,12,1) 4%, rgba(15,15,15,1) 79%);
+
 }
 * {
   margin: 0;
   padding: 0;
 }
 .heartimg {
-  width: 35%;
+  width: 35vw;
   
 }
 .heartbeat {
@@ -131,6 +132,7 @@ export default {
   justify-content: center;
   align-items: center;
   z-index: 2;
+  width: 100%;
 }
 .bgheart {
   position: fixed;
@@ -138,10 +140,11 @@ export default {
   align-items: center;
   justify-content: center;
   height: 100%;
+  width: 100%;
   z-index: 1;
 }
 .heartimgbg {
-  width: 45%;
+  width: 55vw;
   opacity: 0.12;
   animation: heartbeatbg 3000ms infinite ease-in-out;
   transition: 200ms;
@@ -152,10 +155,11 @@ export default {
   align-items: center;
   justify-content: center;
   height: 100%;
+  width: 100%;
   z-index: 1;
 }
 .heartimgbg2 {
-  width: 45%;
+  width: 55vw;
   opacity: 0.12;
   animation: heartbeatbg2 3000ms infinite ease-in-out;
   transition: 200ms;
@@ -319,19 +323,19 @@ input:focus {
 
 @keyframes heartbeat {
     0%{
-      width: 35%;
+      width: 35vw;
     }
     15% {
-      width: 40%;
+      width: 40vw;
     }
     30%{
-      width: 35%;
+      width: 35vw;
     }
     50%{
-      width: 40%;
+      width: 40vw;
     }
     70%{
-      width: 35%;
+      width: 35vw;
     }
     
 }
@@ -344,6 +348,162 @@ input:focus {
     }
     
 }
+
+/* 500px */
+@keyframes heartbeat500 {
+    0%{
+      width: 50vw;
+    }
+    15% {
+      width: 60vw;
+    }
+    30%{
+      width: 50vw;
+    }
+    50%{
+      width: 60vw;
+    }
+    70%{
+      width: 50vw;
+    }
+    
+}
+@keyframes pulse500 {
+    0%{
+      width: 50vw;
+    }
+    50%{
+      width: 55vw;
+    }
+    
+}
+@keyframes heartbeatbg500 {
+    0%{
+      width: 60vw;
+      opacity: 0.12;
+    }
+    15% {
+      width: 65vw;
+      opacity: 0.10;
+    }
+    30%{
+      width: 70vw;
+      opacity: 0.07;
+    }
+    50%{
+      width: 75vw;
+      opacity: 0.03;
+    }
+    70%{
+      width: 80vw;
+      opacity: 0;
+    }
+    80%{
+      width: 60vw;
+      opacity: 0;
+    }
+    
+}
+@keyframes heartbeatbg2_500 {
+    0%{
+      opacity: 0;
+      width: 60vw;
+    }
+    15% {
+      opacity: 0;
+      width: 60vw;
+    }
+    30% {
+      opacity: 0.12;
+      width: 60vw;
+    }
+    50%{
+      opacity: 0.10;
+      width: 60vw;
+    }
+    70% {
+      opacity: 0.07;
+      width: 65vw;
+    }
+    80% {
+      width: 70vw;
+      opacity: 0.03;
+    }
+    90% {
+      width: 75vw;
+      opacity: 0;
+    }
+    100% {
+      width: 75vw;
+      opacity: 0;
+    }
+
+    
+}
+@keyframes heartbeattext500 {
+    0%{
+      font-size: 5vw;
+      color: #A50C40;
+    }
+    15% {
+      font-size: 5.3vw;
+      color: #ce0a4b;
+    }
+    30%{
+      font-size: 5vw;
+      color: #A50C40;
+    }
+    50%{
+      font-size: 5.3vw;
+      color: #ce0a4b;
+    }
+    70%{
+      font-size: 5vw;
+      color: #A50C40;
+    }
+    100% {
+      font-size: 5vw;
+    }
+    
+}
+@keyframes hearsizemax500 {
+  0%{
+    width: 50vw;
+    opacity: 1;
+  }
+  10%{
+    width: 52.5vw;
+  }
+  20%{
+    width: 55vw;
+  }
+  30%{
+    width: 57.5vw;
+  }
+  40%{
+    width: 60vw;
+  }
+  50%{
+    width: 62.5vw;
+  }
+  60%{
+    width: 65vw;
+  }
+  70%{
+    width: 67.5vw;
+  }
+  80% {
+    opacity: 1;
+  }
+  90%{
+    opacity: 0.5;
+  }
+  100%{
+    width: 67.5vw;
+  }
+}
+
+
 @keyframes shake {
     0%{
       padding-left: 10%;
@@ -386,6 +546,7 @@ input:focus {
     }
     
 }
+
 
 @keyframes heartbeatbg {
     0%{
@@ -517,6 +678,82 @@ input:focus {
   }
 }
 
+@media only screen and (max-width: 1200px) {
+  
+}
+@media only screen and (max-width: 900px) {
+
+}
+@media only screen and (max-width: 600px) {
+
+}
+@media only screen and (max-width: 500px) {
+  .heartimg {
+     width: 50vw;
+  }
+  .heartbeat {
+    animation: heartbeat500 3000ms infinite;
+  }
+  .pulse {
+  animation: pulse500 3000ms infinite;
+  }
+  .heartimgbg {
+  width: 60vw;
+  opacity: 0.12;
+  animation: heartbeatbg500 3000ms infinite ease-in-out;
+  transition: 200ms;
+  }
+  .heartimgbg2 {
+  width: 60vw;
+  opacity: 0.12;
+  animation: heartbeatbg2_500 3000ms infinite ease-in-out;
+  transition: 200ms;
+  }
+  .underhearttext {
+    font-size: 5vw;
+  }
+  .underhearttexth2 {
+  animation: heartbeattext500 3000ms infinite;
+  }
+  .paswblock {
+    font-size:large;
+  }
+  .passwinput {
+    border-bottom: solid 2px #610221;
+    width: 45%;
+    padding: 13px;
+  }
+  input:focus {
+    border-bottom: 2px solid #FF0C5E;
+    transition: 500ms;
+  }
+  .openbutton {
+    padding: 4% 6%;
+    font-size: 3vh;
+    background-color: transparent;
+    border: solid 2px #FF0C5E;
+    border-radius: 21px;
+  }
+  .openbutton:disabled {
+    border: solid 2px #610221;
+    color: #610221;
+  }
+  .heartsizemax {
+    /* width: 52.5%; */
+    width: 67.5vw;
+    animation: hearsizemax500 1000ms;
+    opacity: 0.12;
+  }
+  .govstr {
+    font-size: 7vh;
+  }
+  .bottext {
+    font-size: 5vw;
+  }
+  .topext {
+    font-size: 4vw;
+  }
+}
 </style>
 
 
